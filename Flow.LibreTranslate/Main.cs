@@ -17,6 +17,8 @@ namespace Flow.Launcher.Plugin.LibreTranslate
         internal const string LanguageListUrl = "https://libretranslate.com/languages";
         internal const string TranslatetUrl = "https://libretranslate.com/translate";
 
+        internal const string IconPath = "Images\\translate.png";
+
         public async Task InitAsync(PluginInitContext context)
         {
             _context = context;
@@ -30,10 +32,30 @@ namespace Flow.Launcher.Plugin.LibreTranslate
 
         public async Task<List<Result>> QueryAsync(Query query, CancellationToken token)
         {
-            if (!(query.SecondSearch.Any() && query.ThirdSearch.Any()))
-                return new List<Result>();
+            string[] searchs = query.Search.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            string[] searchs = query.Search.Split();
+            bool semiQueryCompleted = searchs.Length == 0 || supportedLanguage.Any(x => x.Code == searchs[^1]);
+
+            if (searchs.Length < 3)
+            {
+                if (searchs.Length == 2 && semiQueryCompleted)
+                    return new List<Result>();
+                return supportedLanguage.Select(l => new Result
+                {
+                    Title = l.Name,
+                    SubTitle = l.Code,
+                    Action = _ =>
+                    {
+                        _context.API.ChangeQuery(
+                            $"{_context.CurrentPluginMetadata.ActionKeyword} {(semiQueryCompleted ? query.Search : string.Join(' ', searchs[..^1]))}{(searchs.Length == 0 ? "" : " ")}{l.Code} "
+                        );
+                        return false;
+                    },
+                    IcoPath = IconPath,
+                    Score = semiQueryCompleted ? 100 : _context.API.FuzzySearch(searchs[^1], l.Name).Score
+                }).Where(r => r.Score > 0)
+                .ToList();
+            }
 
             var from = supportedLanguage.Find(x => x.Code == searchs[0]);
             var to = supportedLanguage.Find(x => x.Code == searchs[1]);
@@ -47,6 +69,9 @@ namespace Flow.Launcher.Plugin.LibreTranslate
                 {"api_key",""}
             };
 
+            await Task.Delay(150);
+            token.ThrowIfCancellationRequested();
+
             FormUrlEncodedContent content = new FormUrlEncodedContent(requestContent);
             using var response = await client.PostAsync(TranslatetUrl, content, token);
 
@@ -56,7 +81,8 @@ namespace Flow.Launcher.Plugin.LibreTranslate
                 new Result{
                     Title=$"Translated Text: {result.RootElement.GetProperty("translatedText")}",
                     SubTitle=$"{text}: From {from.Name} to {to.Name}",
-                    Score=100
+                    Score=100,
+                    IcoPath=IconPath
                 }
             };
 
