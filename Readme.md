@@ -1,8 +1,12 @@
-Flow.Launcher.Plugin.LibreTranslate
+Flow.LibreTranslate
 ==================
 
-A plugin for the [Flow launcher](https://github.com/Flow-Launcher/Flow.Launcher).
+A translation plugin for the [Flow launcher](https://github.com/Flow-Launcher/Flow.Launcher).
 
 ### Usage
 
-    tr <arguments>
+    tr <from (code)> <to (code)> <text>
+
+### Installation
+
+    `pm install LibreTranslate`
