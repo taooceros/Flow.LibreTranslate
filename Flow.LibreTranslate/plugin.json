@@ -1,0 +1,12 @@
+{
+    "ID": "81b8c8c8-72ef-427c-a9c1-17cf8f1c766c",
+    "ActionKeyword": "tr",
+    "Name": "LibreTranslate",
+    "Description": "a translation plugin for Flow-Launcher",
+    "Author": "taooceros",
+    "Version": "1.0.0",
+    "Language": "csharp",
+    "Website": "https://github.com/taooceros/Flow.Launcher.Plugin.LibreTranslate",
+    "IcoPath": "icon.png",
+    "ExecuteFileName": "Flow.LibreTranslate.dll"
+}

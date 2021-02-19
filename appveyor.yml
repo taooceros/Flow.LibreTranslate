@@ -1,0 +1,18 @@
+version: 1.0.0.{build}
+image: Visual Studio 2019
+
+environment:
+    DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+    DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+build_script:
+- ps: dotnet pack -c Release Flow.Launcher.Plugin.LibreTranslate/Flow.Launcher.Plugin.LibreTranslate.csproj
+
+after_build:
+- ps: >-
+    Compress-Archive -Path "Flow.LibreTranslate\bin\Release\*" -DestinationPath "plugin.zip"
+
+    Rename-Item plugin.zip Flow.LibreTranslate.flowlauncher
+
+artifacts:
+    - path: 'Flow.LibreTranslate.flowlauncher'

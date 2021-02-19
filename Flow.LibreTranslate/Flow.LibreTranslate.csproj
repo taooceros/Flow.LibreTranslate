@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Flow.LibreTranslate</AssemblyName>
+    <PackageId>Flow.LibreTranslate</PackageId>
+    <Authors>taooceros</Authors>
+    <PackageProjectUrl>https://github.com/taooceros/Flow.Launcher.Plugin.LibreTranslate</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/taooceros/Flow.Launcher.Plugin.LibreTranslate</RepositoryUrl>
+    <PackageTags>flow-launcher flow-plugin</PackageTags>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\Flow.Launcher.Plugin.LibreTranslate.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="plugin.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Flow.Launcher.Plugin" Version="1.4.0" />
+  </ItemGroup>
+
+</Project>
