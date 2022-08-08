@@ -4,7 +4,7 @@
     "Name": "LibreTranslate",
     "Description": "a translation plugin for Flow-Launcher",
     "Author": "taooceros",
-    "Version": "1.0.1",
+    "Version": "1.0.2",
     "Language": "csharp",
     "Website": "https://github.com/taooceros/Flow.LibreTranslate",
     "IcoPath": "Images//pic.png",
