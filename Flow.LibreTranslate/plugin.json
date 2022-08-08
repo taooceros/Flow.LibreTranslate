@@ -6,7 +6,7 @@
     "Author": "taooceros",
     "Version": "1.0.1",
     "Language": "csharp",
-    "Website": "https://github.com/taooceros/Flow.Launcher.Plugin.LibreTranslate",
+    "Website": "https://github.com/taooceros/Flow.LibreTranslate",
     "IcoPath": "Images//pic.png",
     "ExecuteFileName": "Flow.LibreTranslate.dll"
 }
